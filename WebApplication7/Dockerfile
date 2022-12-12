@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY WebApplication7/WebApplication7.csproj WebApplication7/
+COPY WebApplication7/WebApplication7.csproj, WebApplication7/
 RUN dotnet restore WebApplication7/WebApplication7.csproj
 COPY . .
 WORKDIR /src/WebApplication7
-RUN dotnet build ./src/WebApplication7.csproj -c Release -o /app/build
+RUN dotnet build WebApplication7.csproj -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish ./src/WebApplication7.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish WebApplication7.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
