@@ -1,0 +1,36 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapplication7-deploy
+spec:
+    replicas: 1
+    selector: 
+      app: webapplication7-pod
+  template:
+    metadata:
+      labels:
+        app: webapplication7-pod
+    spec:
+      containers:
+      - name: webapplication7-container
+        image: azcontainerregdev.azurecr.io/webapplication7:latest
+        imagePullPolicy: Always
+        resources:
+        env:
+           - name: a
+             value: "1"
+        ports:
+           - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapplication7-pod
+spec:
+    selector:
+    app: webapplication7-pod
+    type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  
