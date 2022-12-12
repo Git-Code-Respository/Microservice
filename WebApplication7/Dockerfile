@@ -7,8 +7,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ./WebApplication7.csproj ./
-RUN dotnet restore ./WebApplication7.csproj
+COPY WebApplication7/WebApplication7.csproj WebApplication7/
+RUN dotnet restore WebApplication7/WebApplication7.csproj
 COPY . .
 WORKDIR /src/WebApplication7
 RUN dotnet build ./src/WebApplication7.csproj -c Release -o /app/build
